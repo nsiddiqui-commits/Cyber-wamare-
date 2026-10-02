@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footbollerzzz | Elite Football Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Subtle Airy Patterns & Textures */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .bg-grid-light {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .bg-pitch-lines {
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%),
+                              linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 60px 60px, 60px 60px;
+        }
+
+        /* Airy Translucent Glassmorphism Elements */
+        .airy-glass-dark {
+            background: rgba(18, 18, 18, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .airy-glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .airy-glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -10px rgba(255, 255, 255, 0.1);
+        }
+
+        .airy-glass-light {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: #000;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Hide elements dynamically */
+        .nav-tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .nav-tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Monochrome Glowing Borders */
+        .bw-glow {
+            box-shadow: 0 0 25px -5px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-100 min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+
+    <header class="sticky top-0 z-50 airy-glass-dark border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-outfit font-black text-xl shadow-lg shadow-white/10">
+                        <i class="fa-solid font-bold fa-soccer-ball animate-spin-slow"></i>
+                    </div>
+                    <div>
+                        <span class="font-outfit font-black text-2xl tracking-wider text-white uppercase block leading-none">FOOTBOLLERZZZ</span>
+                        <span class="text-[9px] tracking-widest text-gray-400 font-mono uppercase block mt-0.5">ELITE PITCH & ACADEMY</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('home')" id="nav-btn-home" class="nav-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all text-white bg-white/10 border border-white/20">
+                        <i class="fa-solid fa-house mr-1.5 opacity-70"></i> Home
+                    </button>
+                    <button onclick="switchTab('booking')" id="nav-btn-booking" class="nav-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        <i class="fa-solid fa-calendar-check mr-1.5 opacity-70"></i> Book System
+                    </button>
+                    <button onclick="switchTab('learning')" id="nav-btn-learning" class="nav-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        <i class="fa-solid fa-graduation-cap mr-1.5 opacity-70"></i> Learning Menu
+                    </button>
+                    <button onclick="switchTab('gallery')" id="nav-btn-gallery" class="nav-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        <i class="fa-solid fa-images mr-1.5 opacity-70"></i> Gallery
+                    </button>
+                    <button onclick="switchTab('contacts')" id="nav-btn-contacts" class="nav-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        <i class="fa-solid fa-address-book mr-1.5 opacity-70"></i> Contacts
+                    </button>
+                </nav>
+
+                <!-- Quick Action Button -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="switchTab('booking')" class="bg-white text-black hover:bg-gray-200 font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full shadow-lg transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                        <span>Book Pitch</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white p-2 rounded-lg bg-white/5 border border-white/10">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden airy-glass-dark border-b border-white/10 px-4 pt-2 pb-6 space-y-2">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 flex items-center gap-3">
+                <i class="fa-solid fa-house text-gray-400"></i> Home
+            </button>
+            <button onclick="switchTab('booking'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 flex items-center gap-3">
+                <i class="fa-solid fa-calendar-check text-gray-400"></i> Booking System
+            </button>
+            <button onclick="switchTab('learning'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 flex items-center gap-3">
+                <i class="fa-solid fa-graduation-cap text-gray-400"></i> Learning Menu
+            </button>
+            <button onclick="switchTab('gallery'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 flex items-center gap-3">
+                <i class="fa-solid fa-images text-gray-400"></i> Gallery
+            </button>
+            <button onclick="switchTab('contacts'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider text-white hover:bg-white/10 flex items-center gap-3">
+                <i class="fa-solid fa-address-book text-gray-400"></i> Contacts
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow relative">
+
+        <!-- VIEW 1: HOME PAGE -->
+        <section id="view-home" class="nav-tab-content active">
+            <!-- Hero Section -->
+            <div class="relative min-h-[85vh] flex items-center justify-center bg-grid-pattern overflow-hidden border-b border-white/10">
+                <!-- Ambient Backdrop Blur Orbs -->
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div class="absolute -bottom-10 right-10 w-80 h-80 bg-zinc-800/20 rounded-full blur-[90px] pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 text-center">
+                    <!-- High Contrast Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full airy-glass-card text-xs font-mono tracking-widest text-gray-300 uppercase mb-8 border border-white/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        PREMIUM ARENA & TACTICAL HUB 2026
+                    </div>
+
+                    <!-- Main B&W Headline -->
+                    <h1 class="font-outfit text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tight text-white mb-6 leading-none">
+                        MASTER THE <br/>
+                        <span class="bg-gradient-to-r from-white via-gray-300 to-gray-600 bg-clip-text text-transparent">PITCH & DRILLS</span>
+                    </h1>
+
+                    <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10 font-light leading-relaxed">
+                        Footbollerzzz provides state-of-the-art turf rentals, pro-level training tactical guides, and an immersive community center. Pure football excellence, engineered in high contrast.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="switchTab('booking')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-extrabold text-sm uppercase tracking-wider hover:bg-gray-200 transition-all transform hover:-translate-y-1 shadow-2xl flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-futbol text-lg"></i>
+                            <span>Reserve Pitch Now</span>
+                        </button>
+                        <button onclick="switchTab('learning')" class="w-full sm:w-auto px-8 py-4 rounded-full airy-glass-card text-white font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-all flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-play text-xs"></i>
+                            <span>Explore Learning Drills</span>
+                        </button>
+                    </div>
+
+                    <!-- Statistics Bar (Airy Card) -->
+                    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                        <div class="airy-glass-card p-6 rounded-2xl text-center">
+                            <div class="font-outfit text-3xl sm:text-4xl font-extrabold text-white">12+</div>
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mt-1 font-mono">Pro Turfs</div>
+                        </div>
+                        <div class="airy-glass-card p-6 rounded-2xl text-center">
+                            <div class="font-outfit text-3xl sm:text-4xl font-extrabold text-white">250+</div>
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mt-1 font-mono">Video Drills</div>
+                        </div>
+                        <div class="airy-glass-card p-6 rounded-2xl text-center">
+                            <div class="font-outfit text-3xl sm:text-4xl font-extrabold text-white">15k</div>
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mt-1 font-mono">Active Players</div>
+                        </div>
+                        <div class="airy-glass-card p-6 rounded-2xl text-center">
+                            <div class="font-outfit text-3xl sm:text-4xl font-extrabold text-white">99.8%</div>
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mt-1 font-mono">Slot Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Highlights Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center mb-16">
+                    <h2 class="font-outfit text-xs font-mono uppercase tracking-widest text-gray-400 mb-2">WHY FOOTBOLLERZZZ</h2>
+                    <p class="font-outfit text-3xl sm:text-5xl font-extrabold text-white uppercase">AIRY LAYOUT. UNCOMPROMISING PERFORMANCE.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="airy-glass-card p-8 rounded-3xl relative overflow-hidden group">
+                        <div class="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <h3 class="text-2xl font-outfit font-bold uppercase text-white mb-3">Instant Slot Booking</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Real-time slot engine allowing team captains to lock down indoor and outdoor pitches with instant digital entry passes.
+                        </p>
+                        <button onclick="switchTab('booking')" class="text-xs font-bold uppercase tracking-wider text-white hover:underline inline-flex items-center gap-2">
+                            Go to Booking System <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="airy-glass-card p-8 rounded-3xl relative overflow-hidden group">
+                        <div class="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-person-running"></i>
+                        </div>
+                        <h3 class="text-2xl font-outfit font-bold uppercase text-white mb-3">Pro Learning Menu</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Curated library of dribbling, tactical, and shooting drills with animated guides and step-by-step masterclasses.
+                        </p>
+                        <button onclick="switchTab('learning')" class="text-xs font-bold uppercase tracking-wider text-white hover:underline inline-flex items-center gap-2">
+                            Open Tactical Menu <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="airy-glass-card p-8 rounded-3xl relative overflow-hidden group">
+                        <div class="w-14 h-14 rounded-2xl bg-white text-black flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <h3 class="text-2xl font-outfit font-bold uppercase text-white mb-3">High-Def Gallery</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Browse high-resolution match photography, pitch views, and community tournament highlight reels.
+                        </p>
+                        <button onclick="switchTab('gallery')" class="text-xs font-bold uppercase tracking-wider text-white hover:underline inline-flex items-center gap-2">
+                            View HD Gallery <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Spotlight CTA -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+                <div class="airy-glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden bg-pitch-lines flex flex-col md:flex-row items-center justify-between gap-8 border border-white/20">
+                    <div class="max-w-xl">
+                        <span class="px-3 py-1 bg-white text-black font-mono text-[10px] uppercase font-bold rounded">SECOND PAGE HIGHLIGHT</span>
+                        <h3 class="font-outfit text-3xl sm:text-4xl font-extrabold uppercase text-white mt-4 mb-2">READY TO TAKE THE PITCH?</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Select your date, choose equipment add-ons, and secure pitch confirmation in under 60 seconds with our seamless booking portal.
+                        </p>
+                    </div>
+                    <button onclick="switchTab('booking')" class="px-8 py-4 bg-white text-black hover:bg-gray-200 font-extrabold uppercase tracking-wider text-xs rounded-full shadow-2xl transition-transform hover:scale-105 whitespace-nowrap">
+                        Launch Booking System
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: BOOKING SYSTEM (SECOND PAGE) -->
+        <section id="view-booking" class="nav-tab-content">
+            <div class="bg-grid-pattern py-12 border-b border-white/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-xs font-mono tracking-widest text-gray-400 uppercase bg-white/5 px-4 py-1.5 rounded-full border border-white/10">PAGE 02 // ONLINE RESERVATIONS</span>
+                        <h1 class="font-outfit text-4xl sm:text-6xl font-black uppercase text-white mt-4 mb-3">BOOKING SYSTEM</h1>
+                        <p class="text-gray-400 text-sm sm:text-base">Select your facility type, pick a date and time slot, and lock in your session with instant pass generation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Left Column: Interactive Booking Form Steps -->
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <!-- Step 1: Arena Type -->
+                        <div class="airy-glass-card p-6 sm:p-8 rounded-3xl">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center font-mono text-sm">1</span>
+                                <h3 class="font-outfit text-xl font-bold uppercase text-white">Select Arena & Facility</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="facility_type" value="Indoor Arena A" class="peer hidden" checked onchange="updateBookingSummary()">
+                                    <div class="p-5 rounded-2xl airy-glass-card border-2 border-transparent peer-checked:border-white peer-checked:bg-white/10 transition-all flex flex-col justify-between h-full">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <i class="fa-solid fa-warehouse text-xl text-gray-300"></i>
+                                            <span class="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-gray-300">$80/hr</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm">Indoor Arena A</h4>
+                                            <p class="text-[11px] text-gray-400 mt-1">Air-conditioned FIFA standard turf (5v5)</p>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="facility_type" value="Outdoor Stadium Turf" class="peer hidden" onchange="updateBookingSummary()">
+                                    <div class="p-5 rounded-2xl airy-glass-card border-2 border-transparent peer-checked:border-white peer-checked:bg-white/10 transition-all flex flex-col justify-between h-full">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <i class="fa-solid fa-cloud-sun text-xl text-gray-300"></i>
+                                            <span class="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-gray-300">$120/hr</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm">Outdoor Stadium</h4>
+                                            <p class="text-[11px] text-gray-400 mt-1">Full 11v11 flooded stadium lighting</p>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="facility_type" value="Private Tactical Cage" class="peer hidden" onchange="updateBookingSummary()">
+                                    <div class="p-5 rounded-2xl airy-glass-card border-2 border-transparent peer-checked:border-white peer-checked:bg-white/10 transition-all flex flex-col justify-between h-full">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <i class="fa-solid fa-bullseye text-xl text-gray-300"></i>
+                                            <span class="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-gray-300">$60/hr</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm">Tactical Cage</h4>
+                                            <p class="text-[11px] text-gray-400 mt-1">High-density 3v3 drill cage + rebounders</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Date & Time Picker -->
+                        <div class="airy-glass-card p-6 sm:p-8 rounded-3xl">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center font-mono text-sm">2</span>
+                                <h3 class="font-outfit text-xl font-bold uppercase text-white">Choose Date & Time Slot</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Reservation Date</label>
+                                    <input type="date" id="booking-date" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white transition-all text-sm" onchange="updateBookingSummary()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Session Duration</label>
+                                    <select id="booking-duration" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white transition-all text-sm" onchange="updateBookingSummary()">
+                                        <option value="1">1 Hour Session</option>
+                                        <option value="2">2 Hours Session (10% Off)</option>
+                                        <option value="3">3 Hours Tournament Slot</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-gray-400 mb-3">Available Time Slots</label>
+                                <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5" id="time-slots-grid">
+                                    <!-- Dynamic Time Slot Buttons rendered by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Player Information & Addons -->
+                        <div class="airy-glass-card p-6 sm:p-8 rounded-3xl">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center font-mono text-sm">3</span>
+                                <h3 class="font-outfit text-xl font-bold uppercase text-white">Captain Details & Gear Add-ons</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-1.5">Captain Name</label>
+                                    <input type="text" id="captain-name" placeholder="e.g. Alex Morgan" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white text-sm" oninput="updateBookingSummary()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-1.5">Contact Phone</label>
+                                    <input type="tel" id="captain-phone" placeholder="+1 (555) 000-0000" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white text-sm">
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <span class="block text-xs font-mono uppercase text-gray-400">Match Gear Add-ons (Optional)</span>
+                                
+                                <label class="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/10 hover:border-white/30 cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="addon-ball" class="w-4 h-4 rounded accent-white cursor-pointer" onchange="updateBookingSummary()">
+                                        <span class="text-sm font-medium text-gray-200">Pro Match Ball Bundle (2x Adidas Balls)</span>
+                                    </div>
+                                    <span class="text-xs font-mono text-gray-400">+$15</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/10 hover:border-white/30 cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="addon-bibs" class="w-4 h-4 rounded accent-white cursor-pointer" onchange="updateBookingSummary()">
+                                        <span class="text-sm font-medium text-gray-200">Colored Team Bibs (10 Sets)</span>
+                                    </div>
+                                    <span class="text-xs font-mono text-gray-400">+$10</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/10 hover:border-white/30 cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="addon-ref" class="w-4 h-4 rounded accent-white cursor-pointer" onchange="updateBookingSummary()">
+                                        <span class="text-sm font-medium text-gray-200">Official Certified Referee</span>
+                                    </div>
+                                    <span class="text-xs font-mono text-gray-400">+$40</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Booking Summary Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="sticky top-28 airy-glass-card p-6 sm:p-8 rounded-3xl border-2 border-white/20 shadow-2xl">
+                            <h3 class="font-outfit text-2xl font-black uppercase text-white pb-4 border-b border-white/10 mb-6 flex justify-between items-center">
+                                <span>SESSION SUMMARY</span>
+                                <i class="fa-solid fa-receipt text-gray-400"></i>
+                            </h3>
+
+                            <div class="space-y-4 text-sm font-light">
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Facility</span>
+                                    <span id="sum-facility" class="text-white font-medium">Indoor Arena A</span>
+                                </div>
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Date</span>
+                                    <span id="sum-date" class="text-white font-medium">Not Selected</span>
+                                </div>
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Time Slot</span>
+                                    <span id="sum-time" class="text-white font-medium">--:--</span>
+                                </div>
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Captain</span>
+                                    <span id="sum-captain" class="text-white font-medium">Guest</span>
+                                </div>
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Add-ons</span>
+                                    <span id="sum-addons" class="text-white font-medium">$0</span>
+                                </div>
+
+                                <div class="pt-4 border-t border-white/10 flex justify-between items-baseline">
+                                    <span class="font-outfit uppercase font-bold text-base text-white">TOTAL PRICE</span>
+                                    <span id="sum-total" class="font-outfit text-3xl font-extrabold text-white">$80</span>
+                                </div>
+                            </div>
+
+                            <button onclick="confirmBooking()" class="w-full mt-8 py-4 bg-white text-black hover:bg-gray-200 font-extrabold text-xs uppercase tracking-widest rounded-2xl shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                                CONFIRM & GENERATE PASS
+                            </button>
+
+                            <p class="text-[10px] text-gray-500 text-center mt-4">
+                                <i class="fa-solid fa-lock text-[9px] mr-1"></i> Free cancellation up to 12 hours prior to match time.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: FOOTBALL LEARNING MENU -->
+        <section id="view-learning" class="nav-tab-content">
+            <div class="bg-grid-pattern py-12 border-b border-white/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-xs font-mono tracking-widest text-gray-400 uppercase bg-white/5 px-4 py-1.5 rounded-full border border-white/10">PRO TACTICS & DRILLS</span>
+                        <h1 class="font-outfit text-4xl sm:text-6xl font-black uppercase text-white mt-4 mb-3">LEARNING MENU</h1>
+                        <p class="text-gray-400 text-sm sm:text-base">Level up your game with structured tactical lessons, mastery drills, and interactive coaching breakdowns.</p>
+                    </div>
+
+                    <!-- Drill Category Filters -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+                        <button onclick="filterDrills('all')" class="drill-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-black transition-all">All Drills</button>
+                        <button onclick="filterDrills('dribbling')" class="drill-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300 hover:text-white transition-all">Dribbling</button>
+                        <button onclick="filterDrills('shooting')" class="drill-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300 hover:text-white transition-all">Shooting</button>
+                        <button onclick="filterDrills('tactics')" class="drill-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300 hover:text-white transition-all">Tactics</button>
+                        <button onclick="filterDrills('fitness')" class="drill-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300 hover:text-white transition-all">Fitness & Agility</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drills Grid Container -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="drills-container">
+                    <!-- Cards populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: GALLERY PAGE -->
+        <section id="view-gallery" class="nav-tab-content">
+            <div class="bg-grid-pattern py-12 border-b border-white/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-xs font-mono tracking-widest text-gray-400 uppercase bg-white/5 px-4 py-1.5 rounded-full border border-white/10">HIGH-DEF VISUALS</span>
+                        <h1 class="font-outfit text-4xl sm:text-6xl font-black uppercase text-white mt-4 mb-3">FOOTBALL GALLERY</h1>
+                        <p class="text-gray-400 text-sm sm:text-base">Explore high-resolution pitch captures, tournament night lights, and community moments.</p>
+                    </div>
+
+                    <!-- Gallery Filter Tabs & Upload Control -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+                        <button onclick="filterGallery('all')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-black">All Photos</button>
+                        <button onclick="filterGallery('arena')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300">Arenas</button>
+                        <button onclick="filterGallery('matches')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300">Matches</button>
+                        <button onclick="filterGallery('drills')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300">Training</button>
+                        
+                        <!-- Custom Image Upload Button -->
+                        <label for="gallery-file-upload" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 cursor-pointer transition-all flex items-center gap-2 shadow-lg shadow-white/10 border border-white">
+                            <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                            <span>Upload Photo</span>
+                        </label>
+                        <input type="file" id="gallery-file-upload" accept="image/*" class="hidden" multiple onchange="handleImageUpload(event)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Masonry Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: CONTACTS PAGE -->
+        <section id="view-contacts" class="nav-tab-content">
+            <div class="bg-grid-pattern py-12 border-b border-white/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-xs font-mono tracking-widest text-gray-400 uppercase bg-white/5 px-4 py-1.5 rounded-full border border-white/10">GET IN TOUCH</span>
+                        <h1 class="font-outfit text-4xl sm:text-6xl font-black uppercase text-white mt-4 mb-3">CONNECT WITH US</h1>
+                        <p class="text-gray-400 text-sm sm:text-base">Have questions about stadium bookings, custom tournaments, or academy coaching? Reach out today.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <!-- Contact Form Card (Airy Texture) -->
+                    <div class="airy-glass-card p-8 sm:p-10 rounded-3xl">
+                        <h3 class="font-outfit text-2xl font-bold uppercase text-white mb-6">Send Us A Message</h3>
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Full Name</label>
+                                <input type="text" required placeholder="Marcus Rashford" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white text-sm">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Email Address</label>
+                                    <input type="email" required placeholder="marcus@pitch.com" class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Subject</label>
+                                    <select class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white text-sm">
+                                        <option value="Booking Query">Booking Query</option>
+                                        <option value="Academy Enrollment">Academy Enrollment</option>
+                                        <option value="Tournament Hosting">Tournament Hosting</option>
+                                        <option value="Partnership">Partnership</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Your Message</label>
+                                <textarea rows="4" required placeholder="Tell us about your team size, preferred pitch timings, or training goals..." class="w-full bg-black/60 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white text-sm"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-4 bg-white text-black hover:bg-gray-200 font-extrabold uppercase text-xs tracking-widest rounded-xl transition-all">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Location & Details Column -->
+                    <div class="space-y-8">
+                        <!-- Direct Info Card -->
+                        <div class="airy-glass-card p-8 rounded-3xl space-y-6">
+                            <h3 class="font-outfit text-2xl font-bold uppercase text-white">HQ Arena Info</h3>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 mt-1">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm uppercase">Stadium Address</h4>
+                                    <p class="text-gray-400 text-sm mt-0.5">Footbollerzzz Park, 104 Tactical Drive, Central Sports District</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 mt-1">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm uppercase">Direct Line & WhatsApp</h4>
+                                    <p class="text-gray-400 text-sm mt-0.5">+1 (800) 555-FOOT (3668)</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0 mt-1">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm uppercase">Operating Hours</h4>
+                                    <p class="text-gray-400 text-sm mt-0.5">Monday – Sunday: 06:00 AM – 02:00 AM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Simulated Interactive Map Preview -->
+                        <div class="airy-glass-card p-6 rounded-3xl relative overflow-hidden h-64 flex flex-col justify-between bg-pitch-lines">
+                            <div class="flex justify-between items-start">
+                                <span class="bg-white/10 text-xs font-mono px-3 py-1 rounded-full uppercase">Interactive Map view</span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                            </div>
+                            <div class="text-center">
+                                <i class="fa-solid fa-map-location-dot text-4xl text-white/40 mb-2"></i>
+                                <p class="text-xs font-mono uppercase text-gray-300">Footbollerzzz Arena Hub Center</p>
+                            </div>
+                            <button onclick="showToast('Directions link copied to clipboard!')" class="w-full py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase rounded-xl transition-all">
+                                Open In Google Maps
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: BOOKING CONFIRMATION VOUCHER / PASS -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 airy-glass-dark bg-black/80 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-white/20 rounded-3xl max-w-md w-full p-6 sm:p-8 text-center relative shadow-2xl">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h3 class="font-outfit text-2xl font-black uppercase text-white mb-1">PITCH RESERVED!</h3>
+            <p class="text-xs text-gray-400 mb-6 font-mono">PASS CODE: <span id="modal-pass-code" class="text-white font-bold">#FBZ-8921</span></p>
+
+            <div class="bg-black p-5 rounded-2xl border border-white/10 text-left space-y-2.5 text-xs font-mono mb-6">
+                <div class="flex justify-between"><span class="text-gray-500">Facility:</span> <span id="m-fac" class="text-white"></span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Date:</span> <span id="m-date" class="text-white"></span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Slot:</span> <span id="m-time" class="text-white"></span></div>
+                <div class="flex justify-between"><span class="text-gray-500">Captain:</span> <span id="m-cap" class="text-white"></span></div>
+                <div class="flex justify-between border-t border-white/10 pt-2"><span class="text-gray-500">Total Paid:</span> <span id="m-price" class="text-white font-bold"></span></div>
+            </div>
+
+            <!-- Simulated SVG Barcode Pass -->
+            <div class="bg-white p-3 rounded-xl mb-6">
+                <div class="h-12 bg-black flex justify-around items-center px-2">
+                    <div class="w-1 h-full bg-white"></div>
+                    <div class="w-2 h-full bg-white"></div>
+                    <div class="w-0.5 h-full bg-white"></div>
+                    <div class="w-3 h-full bg-white"></div>
+                    <div class="w-1 h-full bg-white"></div>
+                    <div class="w-2 h-full bg-white"></div>
+                    <div class="w-1.5 h-full bg-white"></div>
+                    <div class="w-3 h-full bg-white"></div>
+                    <div class="w-1 h-full bg-white"></div>
+                </div>
+            </div>
+
+            <button onclick="closeBookingModal(); switchTab('home')" class="w-full py-3 bg-white text-black font-bold uppercase text-xs rounded-xl hover:bg-gray-200">
+                Done & Return Home
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: DRILL MASTERCLASS DETAIL MODAL -->
+    <div id="drill-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 airy-glass-dark bg-black/80 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-white/20 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="closeDrillModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span id="drill-m-cat" class="text-[10px] font-mono px-3 py-1 bg-white/10 rounded-full text-gray-300 uppercase">Category</span>
+            <h3 id="drill-m-title" class="font-outfit text-3xl font-black uppercase text-white mt-2 mb-4">Drill Title</h3>
+
+            <div class="aspect-video bg-zinc-900 rounded-2xl mb-6 flex items-center justify-center border border-white/10 relative overflow-hidden group">
+                <img id="drill-m-img" class="w-full h-full object-cover opacity-60" src="" alt="Drill banner">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <button onclick="showToast('Loading interactive drill animation video...')" class="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center text-xl shadow-2xl hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-play ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-sm text-gray-300">
+                <h4 class="font-bold text-white uppercase text-xs font-mono tracking-wider">Step-By-Step Execution Guide:</h4>
+                <ol id="drill-m-steps" class="list-decimal list-inside space-y-2 text-xs text-gray-400 font-light">
+                    <!-- Dynamic steps inserted here -->
+                </ol>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-white/10 flex justify-end">
+                <button onclick="closeDrillModal()" class="px-6 py-2.5 bg-white text-black text-xs font-bold uppercase rounded-xl">Close Drill</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-black text-sm">
+                        <i class="fa-solid fa-soccer-ball"></i>
+                    </div>
+                    <span class="font-outfit font-black text-lg tracking-wider text-white uppercase">FOOTBOLLERZZZ</span>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400 font-mono uppercase">
+                    <a href="javascript:void(0)" onclick="switchTab('home')" class="hover:text-white">Home</a>
+                    <a href="javascript:void(0)" onclick="switchTab('booking')" class="hover:text-white">Booking (Page 2)</a>
+                    <a href="javascript:void(0)" onclick="switchTab('learning')" class="hover:text-white">Learning Menu</a>
+                    <a href="javascript:void(0)" onclick="switchTab('gallery')" class="hover:text-white">Gallery</a>
+                    <a href="javascript:void(0)" onclick="switchTab('contacts')" class="hover:text-white">Contacts</a>
+                </div>
+
+                <div class="text-xs text-gray-500 font-mono">
+                    &copy; 2026 FOOTBOLLERZZZ INC. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Store for Drills
+        const DRILLS_DATA = [
+            {
+                id: 'd1',
+                title: 'CONE SLALOM & TURBO SPRINT',
+                category: 'dribbling',
+                difficulty: 'Beginner',
+                duration: '15 Mins',
+                img: 'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=800&q=80',
+                desc: 'Enhance close ball control, sharp direction changes, and sudden acceleration out of turns.',
+                steps: [
+                    'Set 6 cones in a straight line spaced 1.5 yards apart.',
+                    'Dribble through using only the outside and inside of your dominant foot.',
+                    'Upon reaching the final cone, perform an explosive 10-yard sprint.',
+                    'Repeat 5 sets with each foot.'
+                ]
+            },
+            {
+                id: 'd2',
+                title: 'TOP CORNER CURVE STRIKES',
+                category: 'shooting',
+                difficulty: 'Intermediate',
+                duration: '20 Mins',
+                img: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80',
+                desc: 'Master the art of bending the ball into the top corner from outside the 18-yard box.',
+                steps: [
+                    'Place ball 20 yards out at a 45-degree angle to the goal.',
+                    'Approach at an angle, hitting the lower third of the ball with the inside instep.',
+                    'Follow through across your body to generate whipping side-spin.',
+                    'Target 10 strikes into the upper corner netting.'
+                ]
+            },
+            {
+                id: 'd3',
+                title: 'HIGH PRESS TACTICAL OVERLOAD',
+                category: 'tactics',
+                difficulty: 'Pro Master',
+                duration: '30 Mins',
+                img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80',
+                desc: 'Learn high-intensity defensive pressing triggers to force opposition turnovers in dangerous areas.',
+                steps: [
+                    'Establish a 3-man pressing trigger whenever opposition passes sideways.',
+                    'Cut off central passing lanes with angled cover shadows.',
+                    'Force the play towards the touchline and double-team the ball carrier.',
+                    'Transition immediately to goal within 5 seconds of recovery.'
+                ]
+            },
+            {
+                id: 'd4',
+                title: 'BOX-TO-BOX SHUTTLE LADDERS',
+                category: 'fitness',
+                difficulty: 'Advanced',
+                duration: '25 Mins',
+                img: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=800&q=80',
+                desc: 'Build match-level cardiovascular endurance with high-intensity interval shuttle runs.',
+                steps: [
+                    'Sprint from goal line to 6-yard box and jog back.',
+                    'Sprint to 18-yard box and jog back.',
+                    'Sprint to half-line and back.',
+                    'Rest 90 seconds, repeat 4 full cycles.'
+                ]
+            },
+            {
+                id: 'd5',
+                title: 'LA CROQUETA SHIFT DRILL',
+                category: 'dribbling',
+                difficulty: 'Intermediate',
+                duration: '15 Mins',
+                img: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=800&q=80',
+                desc: 'Incorporate Iniesta\'s signature side-to-side shift to evade defender tackles in tight spaces.',
+                steps: [
+                    'Approach defender/cone at moderate pace.',
+                    'Push ball laterally from right foot to left foot in one fluid motion.',
+                    'Accelerate forward past the defender on the left side.',
+                    'Practice 20 repetitions switching initiating foot.'
+                ]
+            },
+            {
+                id: 'd6',
+                title: 'FIRST TOUCH CUSHION CONTROL',
+                category: 'dribbling',
+                difficulty: 'Beginner',
+                duration: '20 Mins',
+                img: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80',
+                desc: 'Kill aerial passes dead at your feet using soft ankle positioning and spatial awareness.',
+                steps: [
+                    'Have partner toss or volley high aerial balls to you.',
+                    'Withdraw foot slightly at moment of contact to absorb kinetic energy.',
+                    'Set the ball up 1 yard in front for your next action.',
+                    'Repeat with laces, thigh, and chest control.'
+                ]
+            }
+        ];
+
+        // Data Store for Gallery Items
+        const GALLERY_DATA = [
+            { id: 1, type: 'arena', title: 'Stadium Floodlight Night', img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80' },
+            { id: 2, type: 'matches', title: 'Championship Final Strike', img: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80' },
+            { id: 3, type: 'drills', title: 'Morning Tactical Brief', img: 'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=800&q=80' },
+            { id: 4, type: 'arena', title: 'Indoor Turf Arena A', img: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=800&q=80' },
+            { id: 5, type: 'matches', title: 'Corner Kick Scramble', img: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=800&q=80' },
+            { id: 6, type: 'drills', title: 'Academy Cone Drills', img: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80' }
+        ];
+
+        let currentGalleryFilter = 'all';
+
+        function renderGallery(filter = 'all') {
+            currentGalleryFilter = filter;
+            const grid = document.getElementById('gallery-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? GALLERY_DATA : GALLERY_DATA.filter(g => g.type === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 airy-glass-card rounded-3xl">
+                        <i class="fa-regular fa-image text-5xl text-gray-500 mb-4 block"></i>
+                        <p class="text-gray-300 text-sm font-mono uppercase mb-2">No photos in this category yet</p>
+                        <p class="text-gray-500 text-xs mb-6">Upload your custom match or training photos to populate this tab.</p>
+                        <label for="gallery-file-upload" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-extrabold uppercase rounded-full cursor-pointer hover:bg-gray-200 transition-all">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            Upload Custom Photo
+                        </label>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'airy-glass-card rounded-3xl overflow-hidden group relative cursor-pointer border border-white/10 h-72';
+                div.onclick = () => showToast(`Previewing "${item.title}" in HD`);
+                div.innerHTML = `
+                    <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x400/111/fff?text=Footbollerzzz+Photo'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-[10px] font-mono uppercase text-gray-400 block mb-0.5">${item.type} ${item.isUserUploaded ? '• Custom Upload' : ''}</span>
+                                <h4 class="font-outfit text-lg font-bold text-white uppercase">${item.title}</h4>
+                            </div>
+                            ${item.isUserUploaded ? `
+                                <button onclick="event.stopPropagation(); deleteGalleryItem(${item.id})" class="w-8 h-8 rounded-full bg-red-500/80 hover:bg-red-500 text-white flex items-center justify-center text-xs transition-colors shadow-lg" title="Delete Upload">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function filterGallery(type) {
+            currentGalleryFilter = type;
+            document.querySelectorAll('.gallery-filter-btn').forEach(b => {
+                b.className = 'gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider airy-glass-card text-gray-300';
+            });
+            event.target.className = 'gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-black';
+            renderGallery(type);
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            let uploadedCount = 0;
+            Array.from(files).forEach((file, index) => {
+                if (!file.type.startsWith('image/')) return;
+
+                const imageUrl = URL.createObjectURL(file);
+                const rawName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+
+                const newItem = {
+                    id: Date.now() + index,
+                    type: currentGalleryFilter !== 'all' ? currentGalleryFilter : 'arena',
+                    title: rawName.length > 22 ? rawName.substring(0, 22) + '...' : rawName,
+                    img: imageUrl,
+                    isUserUploaded: true
+                };
+
+                GALLERY_DATA.unshift(newItem);
+                uploadedCount++;
+            });
+
+            if (uploadedCount > 0) {
+                renderGallery(currentGalleryFilter);
+                showToast(`Uploaded ${uploadedCount} photo${uploadedCount > 1 ? 's' : ''} to gallery!`);
+            }
+            
+            event.target.value = '';
+        }
+
+        function deleteGalleryItem(id) {
+            const index = GALLERY_DATA.findIndex(g => g.id === id);
+            if (index !== -1) {
+                GALLERY_DATA.splice(index, 1);
+                renderGallery(currentGalleryFilter);
+                showToast('Photo removed from gallery');
+            }
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent! Our manager will call you back shortly.');
+            e.target.reset();
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto airy-glass-light px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-bold uppercase tracking-wider border border-black/10 transform translate-y-4 opacity-0 transition-all duration-300';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-black text-sm"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        window.onload = function() {
+            initBookingSlots();
+            renderDrills();
+            renderGallery();
+        };
+    </script>
+</body>
+</html>
